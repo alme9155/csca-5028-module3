@@ -4,6 +4,7 @@ import cu.csca5028.alme9155.collector.database.RawMovieReview
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.compression.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +15,13 @@ import org.bson.Document
 object ApiDataCollector {
     private val client = HttpClient {
         install(ContentNegotiation) { json() }
+
+        install(ContentEncoding) {
+            gzip()
+            deflate()
+        }
+
+        expectSuccess = true
     }
 
     private val apiUrl: String = System.getenv("RAPID_API_URL")
@@ -30,12 +38,29 @@ object ApiDataCollector {
     suspend fun fetchDataFromAPI(): Int = withContext(Dispatchers.IO) {
         println("Fetching API Data from: $apiUrl ...")
 
+        println("-----------------")
+        println("URL: $apiUrl")
+        println("API Key: $apiKey")
+        println("API HOST: $apiHost")
+        println("-----------------")
+
+
         val response: String = client.get(apiUrl) {
             headers {
                 append("x-rapidapi-key", apiKey)
                 append("x-rapidapi-host", apiHost)
             }
         }.body()
+
+        println("get API DONE")
+        println("-----------------")
+        val preview = response.take(30).let { 
+            if (response.length > 30) "$it..." else it 
+        }
+        println("Response preview (first 30 chars): $preview")
+        println("=".repeat(50))
+        println("-----------------")
+
 
         val json = Json.parseToJsonElement(response)
         val array = json.jsonObject["result"]?.jsonArray ?: json.jsonArray

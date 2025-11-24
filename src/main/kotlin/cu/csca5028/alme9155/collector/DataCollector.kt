@@ -9,16 +9,15 @@ fun main() = runBlocking {
     println("Starting data collection pipeline ...\n")
 
     var count = 0
-    /*
+    
     try {
         val fetchedCount = ApiDataCollector.fetchDataFromAPI()
-        val reviews = ApiDataCollector.getFetchedData()
-        count = MongoDBAdapter.upsertMoviesReviews(reviews)
+        //val reviews = ApiDataCollector.getFetchedData()
+        //count = MongoDBAdapter.upsertMoviesReviews(reviews)
     } catch (ex: Exception) {
         println("Exception found during data collection pipeline: ${ex.message}")
         ex.printStackTrace()
     }
-    */
 
     println("... Data collection pipeline complete.")
     println("Total record persisted into database: $count")

@@ -31,8 +31,9 @@ dependencies {
 
     implementation("io.ktor:ktor-client-core-jvm:$ktorVersion")
     implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")
-    implementation("io.ktor:ktor-client-content-negotiation-jvm:$ktorVersion")    
-    implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-client-encoding:$ktorVersion")
+
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
     implementation("org.litote.kmongo:kmongo:$kmongoVersion")
     testImplementation(kotlin("test"))
