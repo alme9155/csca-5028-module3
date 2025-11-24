@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: sentiment_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./database/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    command: --quiet
+
+  data-collector:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: data-collector
+    depends_on:
+      - mongodb
+    environment:
+      MONGODB_URI: "mongodb://root:password@mongodb:27017/sentiment_db?authSource=admin"
+      MONGODB_DB_NAME: "sentiment_db"
+      API_DATA_COLLECTION: "api_data"
+
+      # Set these to your real RapidAPI endpoint and credentials
+      RAPIDAPI_URL: "https://film-show-ratings.p.rapidapi.com/items/?type=film"
+      X_RAPIDAPI_KEY: "114fce61cdmsh31ce360533f7187p1da47bjsn7c2abf7d6e02"
+      X_RAPIDAPI_HOST: "film-show-ratings.p.rapidapi.com"
+
