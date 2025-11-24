@@ -11,7 +11,7 @@ group = "cu.csca5028.alme9155"
 version = "1.0.0"
 
 application {
-    mainClass.set("cu.csca5028.alme9155.collector.AppKt")
+    mainClass.set("cu.csca5028.alme9155.collector.DataCollectorKt")
 }
 
 repositories {
@@ -30,7 +30,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
 
     implementation("io.ktor:ktor-client-core-jvm:$ktorVersion")
-    implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")           // CIO engine (non-blocking)
+    implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation-jvm:$ktorVersion")    
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
@@ -43,7 +43,7 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     archiveVersion.set("1.0.0")
     archiveClassifier.set("")
     manifest {
-        attributes["Main-Class"] = "cu.csca5028.alme9155.collector.AppKt"
+        attributes["Main-Class"] = "cu.csca5028.alme9155.collector.DataCollectorKt"
     }
 }
 
@@ -51,7 +51,4 @@ tasks.jar { enabled = false }
 tasks.distZip { enabled = false }
 tasks.distTar { enabled = false }
 tasks.startScripts { enabled = false }
-
-tasks.build {
-    dependsOn(tasks.shadowJar)
-}
+tasks.build { dependsOn(tasks.shadowJar) }
