@@ -18,6 +18,15 @@ object MongoDBAdapter {
 
     private val dbName: String = System.getenv("MONGODB_DB_NAME") ?: "sentiment_db"
     private val collectionName: String = System.getenv("API_DATA_COLLECTION") ?: "api_data"
+
+    init {
+        println("------------------")
+        println("mongo URI: $uri")
+        println("mongo DB Name: $dbName")
+        println("mongo collectionName: $collectionName")
+        println("------------------")
+    }
+
     private val client: MongoClient by lazy {
         KMongo.createClient(uri)
     }
@@ -39,6 +48,7 @@ object MongoDBAdapter {
         val options = ReplaceOptions().upsert(true)
         var count = 0
 
+        println("Debug: before for loop")
         for (movie in reviews) {
             val doc = Document(movie.raw.toMutableMap()).apply {
                 put("movie_id", movie.movieId)

@@ -38,13 +38,6 @@ object ApiDataCollector {
     suspend fun fetchDataFromAPI(): Int = withContext(Dispatchers.IO) {
         println("Fetching API Data from: $apiUrl ...")
 
-        println("-----------------")
-        println("URL: $apiUrl")
-        println("API Key: $apiKey")
-        println("API HOST: $apiHost")
-        println("-----------------")
-
-
         val response: String = client.get(apiUrl) {
             headers {
                 append("x-rapidapi-key", apiKey)
@@ -52,14 +45,12 @@ object ApiDataCollector {
             }
         }.body()
 
-        println("get API DONE")
-        println("-----------------")
-        val preview = response.take(30).let { 
-            if (response.length > 30) "$it..." else it 
+        println("----------------- Fetched API Data Preview -----------------")
+        val preview = response.take(3000).let { 
+            if (response.length > 3000) "$it..." else it 
         }
-        println("Response preview (first 30 chars): $preview")
-        println("=".repeat(50))
-        println("-----------------")
+        println("Response preview (first 3000 chars): $preview")
+        println("---------------------------------------------------------")
 
 
         val json = Json.parseToJsonElement(response)

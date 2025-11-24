@@ -12,8 +12,8 @@ fun main() = runBlocking {
     
     try {
         val fetchedCount = ApiDataCollector.fetchDataFromAPI()
-        //val reviews = ApiDataCollector.getFetchedData()
-        //count = MongoDBAdapter.upsertMoviesReviews(reviews)
+        val reviews = ApiDataCollector.getFetchedData()
+        count = MongoDBAdapter.upsertMoviesReviews(reviews)
     } catch (ex: Exception) {
         println("Exception found during data collection pipeline: ${ex.message}")
         ex.printStackTrace()

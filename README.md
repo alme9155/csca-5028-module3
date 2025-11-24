@@ -3,13 +3,17 @@
 ## *Goal*: 
 * The goal for this peer review assignment is demonstrate that you can fetch data from an API endpoint and store that data in a database. 
 
-## *Submission Criteria*: 
-* Write a program that fetches data from an external source and saves it into a database. Then you will upload a zipfile with your codebase, including all database setup and schema migrations.
+## Build Procedure (execute at the project root)
+* ./gradlew clean build
+* docker build --no-cache
+* docker compose up -d
 
-Hint: First set up a database, connect to it and then add the fetched data to the database. 
+## To execute the data collector
+* docker compose run --rm data-collector
+Or
+* docker run --rm --network csca-5028-module3_default data-collector
 
-# *Grading Criteria Overview:*
-This assignment will be graded based on the following criteria:
+## To examine the database, you can review the collection in mongodb while the instance is still running ( docker compose -d):
 
-* Fetching data from an external source such as a REST API.
-* Storing the data in a database.
+* docker exec -it mongodb mongosh -u root -p password --quiet --eval "use sentiment_db; db.api_data.countDocuments();"
+* docker exec -it mongodb mongosh -u root -p password --quiet --eval "use sentiment_db; db.api_data.findOne().pretty()"
