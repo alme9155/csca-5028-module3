@@ -5,6 +5,9 @@ import cu.csca5028.alme9155.collector.service.MovieReviewsCollectorService
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
+    /*
+
+
     val apiDataCollectionName =
         System.getenv("API_DATA_COLLECTION") ?: "api_data"
 
@@ -24,5 +27,7 @@ fun main() = runBlocking {
     } else {
         println("Data collection failed.")
     }
+    */
+    println("Hello World!!")
 }
 
