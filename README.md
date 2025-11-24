@@ -14,6 +14,8 @@ Or
 * docker run --rm --network csca-5028-module3_default data-collector
 
 ## To examine the database, you can review the collection in mongodb while the instance is still running ( docker compose -d):
+
+Login to mongo db: > docker exec -it mongodb mongosh -u root -p password
 * use sentiment_db
 * db.api_data.countDocuments()
 * db.api_data.findOne().pretty()
