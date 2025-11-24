@@ -6,10 +6,14 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
-plugins {
-    // Apply the foojay-resolver plugin to allow automatic download of JDKs
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
+// settings.gradle.kts
+pluginManagement {
+    val kotlinVersion = "2.0.21"
+
+    plugins {
+        kotlin("jvm") version kotlinVersion
+        id("org.jetbrains.kotlin.plugin.serialization") version kotlinVersion
+    }
 }
 
-rootProject.name = "CSCA-5028-Module3-Data-Collector"
-include("app")
+rootProject.name = "csca-5028-module3"
