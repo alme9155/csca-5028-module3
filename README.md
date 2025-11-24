@@ -18,4 +18,4 @@ Or
 Login to mongo db: > docker exec -it mongodb mongosh -u root -p password
 * use sentiment_db
 * db.api_data.countDocuments()
-* db.api_data.findOne().pretty()
+* db.api_data.findOne()
